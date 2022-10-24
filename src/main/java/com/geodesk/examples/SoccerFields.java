@@ -9,8 +9,24 @@ import java.util.List;
 
 import static java.lang.System.out;
 
+/**
+ * A simple quality-assurance application that retrieves all the soccer fields
+ * in a GOL and measures their areas. Its output is a list of all areas that are
+ * tagged as soccer fields, but are suspiciously small or large.
+ *
+ * An area less than 300 m2 is likely a smaller kind of pitch, or another
+ * kind of object altogether.
+ *
+ * Areas larger than 5,000 m2 are often entire sports complexes that include
+ * multiple individual soccer fields; these should be re-tagged as
+ * "leisure=sports_centre".
+ *
+ */
 public class SoccerFields
 {
+    static final String GEODESK_PATH =  "c:\\geodesk\\tests\\";
+    static final String GOL_FILE =      "de.gol";
+
     static FeatureLibrary features;
 
     private static class AreaFeature
@@ -27,7 +43,8 @@ public class SoccerFields
 
     public static void main(String[] args)
     {
-        features = new FeatureLibrary("c:\\geodesk\\tests\\france.gol");
+        features = new FeatureLibrary(GEODESK_PATH + GOL_FILE);
+
         double totalArea = 0;
         long totalCount = 0;
         double smallestArea = Double.MAX_VALUE;
@@ -36,11 +53,12 @@ public class SoccerFields
         Feature largest = null;
         List<AreaFeature> tooSmall = new ArrayList<>();
         List<AreaFeature> tooBig = new ArrayList<>();
-        final double MIN_AREA = 300;
-        final double MAX_AREA = 5_000;
+
+        final double MIN_AREA = 300;        // square meters
+        final double MAX_AREA = 5_000;      // square meters
 
         Box box = Box.ofWorld();
-        for (Feature f: features.features("a[leisure=pitch][sport=tennis]").in(box))
+        for (Feature f: features.features("a[leisure=pitch][sport=soccer]").in(box))
         {
             double area = f.area();
             totalArea += area;
@@ -69,5 +87,7 @@ public class SoccerFields
         tooSmall.forEach(af -> out.format("https://www.openstreetmap.org/%s: %f m2\n", af.feature, af.area));
         out.println("\nToo big:");
         tooBig.forEach(af -> out.format("https://www.openstreetmap.org/%s: %f m2\n", af.feature, af.area));
+
+        features.close();
     }
 }
