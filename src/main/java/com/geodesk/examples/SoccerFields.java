@@ -58,7 +58,7 @@ public class SoccerFields
         final double MAX_AREA = 5_000;      // square meters
 
         Box box = Box.ofWorld();
-        for (Feature f: features.features("a[leisure=pitch][sport=soccer]").in(box))
+        for (Feature f: features.select("a[leisure=pitch][sport=soccer]").in(box))
         {
             double area = f.area();
             totalArea += area;

@@ -1,6 +1,7 @@
 package com.geodesk.examples;
 
 import com.clarisma.common.text.Format;
+import com.geodesk.core.Box;
 import com.geodesk.feature.*;
 import static com.geodesk.feature.Filters.*;
 
@@ -26,6 +27,7 @@ public class MeasureRoads
 
         final int adminLevel = 2;
         final String countryName = "Germany";
+        final Box location = Box.atLonLat(9.9,50.7);
         final String roadType = "motorway";
 
         // Try:
@@ -35,9 +37,11 @@ public class MeasureRoads
         // - cycleway
         // - path,pedestrian
 
-        Feature country = features.features(String.format(
+        Feature country = features.select(String.format(
             "a[boundary=administrative][admin_level=%d][name:en=%s]",
-            adminLevel, countryName)).first();
+            adminLevel, countryName))
+            .in(location)
+            .first();
 
         Features<Way> roads = features.ways(
             String.format("w[highway=%s]", roadType));

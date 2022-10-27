@@ -34,7 +34,7 @@ public class HotelFinder
         int hotelCount = 0;
 
         // "na[tourism=hotel,guest_house,hostel][phone][website]"
-        for (Feature hotel : features.features(
+        for (Feature hotel : features.select(
             "na[tourism=hotel][phone][website]").in(bbox))
         {
             hotelCount++;
@@ -45,7 +45,7 @@ public class HotelFinder
             int pubCount = 0;
             int shortestDistance = 10000;
             Feature closestPub = null;
-            for (Feature pub : features.features("na[amenity=pub]").in(pubSearchBox))
+            for (Feature pub : features.select("na[amenity=pub]").in(pubSearchBox))
             {
                 int dist = (int) (Mercator.distance(hotel.x(), hotel.y(), pub.x(), pub.y()) + 0.5);
                 if (dist <= maxPubDistance)

@@ -4,8 +4,6 @@ import com.geodesk.feature.Feature;
 import com.geodesk.feature.FeatureLibrary;
 import com.geodesk.core.Box;
 
-import java.nio.file.Path;
-
 import static java.lang.System.out;
 
 /**
@@ -31,7 +29,7 @@ public class NamedAmenities
         features = new FeatureLibrary(GEODESK_PATH + GOL_FILE, TILESET_URL);
 
         Box box = Box.ofWorld();
-        for (Feature f: features.features("n[amenity=waste_basket,drinking_water,bench][name]").in(box))
+        for (Feature f: features.select("n[amenity=waste_basket,drinking_water,bench][name]").in(box))
         {
             out.format("%s: %s %s\n", f, f.id(), f.tag("amenity"), f.tag("name"));
         }

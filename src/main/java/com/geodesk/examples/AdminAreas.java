@@ -33,7 +33,7 @@ public class AdminAreas
 
     static Features<?> adminAreas(int level)
     {
-        return features.features(String.format(
+        return features.select(String.format(
             "a[boundary=administrative][admin_level=%d][name]", level));
     }
 
@@ -72,7 +72,7 @@ public class AdminAreas
 
         long start = System.currentTimeMillis();
 
-        Feature country = features.features(
+        Feature country = features.select(
             "a[boundary=administrative][admin_level=2][name:en=Germany]")
                 .first();
 
