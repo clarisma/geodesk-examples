@@ -21,8 +21,8 @@ import static java.lang.System.out;
  */
 public class AdminAreas
 {
-    static final String GEODESK_PATH =  "c:\\geodesk\\tests\\";
-    static final String GOL_FILE =      "de.gol";
+    static final String GEODESK_PATH =  "/home/md/geodesk/tests/"; // "c:\\geodesk\\tests\\";
+    static final String GOL_FILE =      "de3.gol";
     static final String TILESET_URL =   null;
 
     static FeatureLibrary features;
