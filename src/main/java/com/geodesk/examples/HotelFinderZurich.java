@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) Clarisma / GeoDesk contributors
+ *
+ * This source code is licensed under the Apache 2.0 license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
 package com.geodesk.examples;
 
 import com.geodesk.core.Box;
@@ -14,8 +21,8 @@ import static java.lang.System.out;
 public class HotelFinderZurich
 {
     static final String GEODESK_PATH =  "c:\\geodesk\\tests\\";
-    static final String GOL_FILE =      "switzerland.gol";
-    static final String TILESET_URL =   null;
+    static final String GOL_FILE =      "s4.gol";
+    static final String TILESET_URL =   "https://data.geodesk.com/switzerland";
 
     static FeatureLibrary features;
 
