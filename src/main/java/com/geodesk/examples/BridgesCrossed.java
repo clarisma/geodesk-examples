@@ -30,10 +30,21 @@ import static java.lang.System.out;
  *
  * Future versions of the query engine might choose this strategy automatically.
  *
+ * 11/18/22:
+ * With the new Query Engine, the gap narrows considerably. Previously, the
+ * segment-by-segment approach was about 50 x faster, but performance of
+ * the "crosses" predicate has increased tenfold; it is now only 5x slower
+ * than segment-by-segment.
+ *
+ * 11/22/22:
+ * Just use "intersects" and be done. Don't bother with segmenting, it is actually
+ * slower in some runs. Intersects is the cheapest filter and good enough for most
+ * cases.
+ *
  */
 public class BridgesCrossed
 {
-    static final String GEODESK_PATH =  "/home/md/geodesk/tests/"; // "c:\\geodesk\\tests\\";
+    static final String GEODESK_PATH =  "c:\\geodesk\\tests\\";
     static final String GOL_FILE =      "de3.gol";
 
     static FeatureLibrary features;
@@ -69,13 +80,27 @@ public class BridgesCrossed
             Format.formatTimespan(end - start));
     }
 
+    static void findBridgesIntersect(Relation river, Features<Way> bridges)
+    {
+        long start = System.currentTimeMillis();
+        List<Way> results = bridges.select(intersects(river)).toList();
+        long end = System.currentTimeMillis();
+
+        printBridges(results);
+        out.format("\nFound %d bridges that intersect river %s in %s\n\n",
+            results.size(), name(river, "name:en", "name"),
+            Format.formatTimespan(end - start));
+    }
+
     static void printBridges(List<Way> bridges)
     {
+        /*
         bridges.sort(Comparator.comparing(Feature::id));
         for(Way bridge: bridges)
         {
             out.format("%s: %s\n", bridge, name(bridge, "bridge:name", "name"));
         }
+         */
     }
 
 
@@ -102,6 +127,29 @@ public class BridgesCrossed
                 end - start));
     }
 
+    static void findBridgesFasterIntersects(Relation river, Features<Way> bridges)
+    {
+        long start = System.currentTimeMillis();
+
+        // We'll use a Set instead of a List here, since bridges may cross
+        // more than one segment; the Set de-duplicates the results for us
+
+        Set<Way> results = new HashSet<>();
+        for(Way segment: river.memberWays())
+        {
+            for (Way bridge : bridges.select(intersects(segment)))
+            {
+                results.add(bridge);
+            }
+        }
+        long end = System.currentTimeMillis();
+
+        printBridges(new ArrayList<>(results));
+        out.format("\nFound %d bridges that intersect segments of river %s in %s\n\n",
+            results.size(), name(river, "name:en", "name"), Format.formatTimespan(
+                end - start));
+    }
+
     public static void main(String[] args)
     {
         features = new FeatureLibrary(GEODESK_PATH + GOL_FILE);
@@ -123,6 +171,8 @@ public class BridgesCrossed
         {
             findBridges(river, bridges);
             findBridgesFaster(river, bridges);
+            findBridgesIntersect(river, bridges);
+            findBridgesFasterIntersects(river, bridges);
         }
 
         features.close();

@@ -9,7 +9,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: com.geodesk:geodesk:0.0.1-SNAPSHOT" level="project" />
+    <orderEntry type="module" module-name="geodesk" />
     <orderEntry type="library" name="Maven: org.eclipse.collections:eclipse-collections:11.1.0" level="project" />
     <orderEntry type="library" name="Maven: org.eclipse.collections:eclipse-collections-api:11.1.0" level="project" />
     <orderEntry type="library" name="Maven: org.locationtech.jts:jts-core:1.19.0" level="project" />
