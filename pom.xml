@@ -4,7 +4,7 @@
 
   <groupId>com.geodesk</groupId>
   <artifactId>geodesk-examples</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.4</version>
   <packaging>jar</packaging>
 
   <name>GeoDesk Examples</name>
@@ -18,11 +18,10 @@
 
   <dependencies>
   
-  	<!-- primitive collections -->
   	<dependency>
 		<groupId>com.geodesk</groupId>
   		<artifactId>geodesk</artifactId>
-  		<version>0.1.1-SNAPSHOT</version>
+  		<version>0.1.4</version>
 	</dependency>
 
     <!-- Testing -->
