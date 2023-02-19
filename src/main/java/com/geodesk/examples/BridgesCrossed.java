@@ -18,8 +18,8 @@ import static java.lang.System.out;
 
 
 /**
- * This example demonstrates how a spatial operation performs much faster when
- * applied to each relation member individually.
+ * This example compares how a spatial operation performs when applied to entire
+ * relation or applied to each relation member individually.
  *
  * Here, we'll query all bridges that cross a river relation. We first apply
  * the "crosses" predicate against the entire relation. Then, we iterate the
@@ -28,7 +28,8 @@ import static java.lang.System.out;
  * bounding boxes of its members is significantly smaller than the relation's
  * bbox, so there are far fewer candidates to consider.
  *
- * Future versions of the query engine might choose this strategy automatically.
+ * New version of the query engine are smarter and such manual strategy is not
+ * needed.
  *
  * 11/18/22:
  * With the new Query Engine, the gap narrows considerably. Previously, the
