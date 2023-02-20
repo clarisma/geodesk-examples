@@ -28,7 +28,7 @@ import static java.lang.System.out;
  * bounding boxes of its members is significantly smaller than the relation's
  * bbox, so there are far fewer candidates to consider.
  *
- * New version of the query engine are smarter and such manual strategy is not
+ * New versions of the query engine are smarter and such manual strategy is not
  * needed.
  *
  * 11/18/22:
