@@ -7,8 +7,8 @@
 
 package com.geodesk.examples;
 
-import com.geodesk.core.Box;
-import com.geodesk.core.Mercator;
+import com.geodesk.geom.Box;
+import com.geodesk.geom.Mercator;
 import com.geodesk.feature.Feature;
 import com.geodesk.feature.FeatureLibrary;
 

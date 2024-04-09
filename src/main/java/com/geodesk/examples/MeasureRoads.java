@@ -8,7 +8,7 @@
 package com.geodesk.examples;
 
 import com.clarisma.common.text.Format;
-import com.geodesk.core.Box;
+import com.geodesk.geom.Box;
 import com.geodesk.feature.*;
 import static com.geodesk.feature.Filters.*;
 
@@ -21,7 +21,7 @@ import static java.lang.System.out;
 public class MeasureRoads
 {
     static final String GEODESK_PATH =  "c:\\geodesk\\tests\\";
-    static final String GOL_FILE =      "de.gol";
+    static final String GOL_FILE =      "de3.gol";
     static final String TILESET_URL =   null;
 
     static FeatureLibrary features;
@@ -50,13 +50,13 @@ public class MeasureRoads
             .in(location)
             .first();
 
-        Features<Way> roads = features.ways(
+        Features roads = features.ways(
             String.format("w[highway=%s]", roadType));
 
         long segmentCount = 0;
         double totalLength = 0;
         double totalOnewayLength = 0;
-        for(Way road: roads.select(within(country)))
+        for(Feature road: roads.select(within(country)))
         {
             double roadLength = road.length();
             totalLength += roadLength;

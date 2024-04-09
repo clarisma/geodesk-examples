@@ -38,7 +38,7 @@ public class AdminAreas
     //
     // See https://wiki.openstreetmap.org/wiki/Tag:boundary%3Dadministrative
 
-    static Features<?> adminAreas(int level)
+    static Features adminAreas(int level)
     {
         return features.select(String.format(
             "a[boundary=administrative][admin_level=%d][name]", level));

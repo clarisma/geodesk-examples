@@ -9,7 +9,7 @@ package com.geodesk.examples;
 
 import com.geodesk.feature.Feature;
 import com.geodesk.feature.FeatureLibrary;
-import com.geodesk.core.Box;
+import com.geodesk.geom.Box;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,7 @@ import static java.lang.System.out;
 public class SoccerFields
 {
     static final String GEODESK_PATH =  "c:\\geodesk\\tests\\";
-    static final String GOL_FILE =      "de.gol";
+    static final String GOL_FILE =      "de3.gol";
 
     static FeatureLibrary features;
 

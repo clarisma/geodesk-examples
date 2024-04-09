@@ -43,7 +43,7 @@ public class NearbyPOIs
     {
         long start = System.currentTimeMillis();
         Set<Feature> results = new HashSet<>();
-        Features<?> amenities = features.select(what);
+        Features amenities = features.select(what);
         long totalCount = amenities.count();
         long pointCount = 0;
         for(Feature point: features.select(nearWhat))
