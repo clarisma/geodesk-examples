@@ -21,7 +21,8 @@ public class Railways
     {
         features = new FeatureLibrary("c:\\geodesk\\tests\\switzerland.gol");
 
-        Features<?> stations = features.select("na[railway=station]");
+        Features stations = features.select("na[railway=station]");
+
         for(Feature station: stations)
         {
             out.format("%s: %s - %s\n", station, station.tag("name"), station.belongsToRelation());

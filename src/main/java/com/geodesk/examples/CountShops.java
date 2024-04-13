@@ -35,8 +35,8 @@ public class CountShops
 
         long start = System.currentTimeMillis();
 
-        Features<?> counties = features.select("a[boundary=administrative][admin_level=6][name]");
-        Features<?> shops = features.select("na[shop]");
+        Features counties = features.select("a[boundary=administrative][admin_level=6][name]");
+        Features shops = features.select("na[shop]");
 
         int countyCount = 0;
         long totalShopCount = 0;

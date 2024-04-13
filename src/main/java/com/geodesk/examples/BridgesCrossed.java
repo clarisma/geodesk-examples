@@ -12,8 +12,6 @@ import com.geodesk.feature.*;
 
 import java.util.*;
 
-import static com.geodesk.feature.Filters.*;
-
 import static java.lang.System.out;
 
 
@@ -69,10 +67,10 @@ public class BridgesCrossed
         return "(unnamed)";
     }
 
-    static void findBridges(Relation river, Features<Way> bridges)
+    static void findBridges(Feature river, Features bridges)
     {
         long start = System.currentTimeMillis();
-        List<Way> results = bridges.select(crosses(river)).toList();
+        List<Feature> results = bridges.crossing(river).toList();
         long end = System.currentTimeMillis();
 
         printBridges(results);
@@ -81,10 +79,10 @@ public class BridgesCrossed
             Format.formatTimespan(end - start));
     }
 
-    static void findBridgesIntersect(Relation river, Features<Way> bridges)
+    static void findBridgesIntersect(Feature river, Features bridges)
     {
         long start = System.currentTimeMillis();
-        List<Way> results = bridges.select(intersects(river)).toList();
+        List<Feature> results = bridges.intersecting(river).toList();
         long end = System.currentTimeMillis();
 
         printBridges(results);
@@ -93,7 +91,7 @@ public class BridgesCrossed
             Format.formatTimespan(end - start));
     }
 
-    static void printBridges(List<Way> bridges)
+    static void printBridges(List<Feature> bridges)
     {
         /*
         bridges.sort(Comparator.comparing(Feature::id));
@@ -105,17 +103,17 @@ public class BridgesCrossed
     }
 
 
-    static void findBridgesFaster(Relation river, Features<Way> bridges)
+    static void findBridgesFaster(Feature river, Features bridges)
     {
         long start = System.currentTimeMillis();
 
         // We'll use a Set instead of a List here, since bridges may cross
         // more than one segment; the Set de-duplicates the results for us
 
-        Set<Way> results = new HashSet<>();
-        for(Way segment: river.memberWays())
+        Set<Feature> results = new HashSet<>();
+        for(Feature segment: river.members().ways())
         {
-            for (Way bridge : bridges.select(crosses(segment)))
+            for (Feature bridge : bridges.crossing(segment))
             {
                 results.add(bridge);
             }
@@ -128,17 +126,17 @@ public class BridgesCrossed
                 end - start));
     }
 
-    static void findBridgesFasterIntersects(Relation river, Features<Way> bridges)
+    static void findBridgesFasterIntersects(Feature river, Features bridges)
     {
         long start = System.currentTimeMillis();
 
         // We'll use a Set instead of a List here, since bridges may cross
         // more than one segment; the Set de-duplicates the results for us
 
-        Set<Way> results = new HashSet<>();
-        for(Way segment: river.memberWays())
+        Set<Feature> results = new HashSet<>();
+        for(Feature segment: river.members().ways())
         {
-            for (Way bridge : bridges.select(intersects(segment)))
+            for (Feature bridge : bridges.intersecting(segment))
             {
                 results.add(bridge);
             }
@@ -157,12 +155,12 @@ public class BridgesCrossed
 
         final String RIVER_NAME_EN = "Rhine";
 
-        Relation river = features.relations(
+        Feature river = features.relations(
             String.format("r[waterway=river][name:en=%s]", RIVER_NAME_EN))
             .first();
 
         // Collection of road bridges
-        Features<Way> bridges = features.ways(
+        Features bridges = features.ways(
             "w[highway][highway != path,pedestrian,cycleway][bridge]");
 
         // Perform multiple runs, so cache warmup and compiler optimizations
