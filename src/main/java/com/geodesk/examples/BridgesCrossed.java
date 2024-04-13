@@ -12,8 +12,6 @@ import com.geodesk.feature.*;
 
 import java.util.*;
 
-import static com.geodesk.feature.Filters.*;
-
 import static java.lang.System.out;
 
 
@@ -71,7 +69,7 @@ public class BridgesCrossed
     static void findBridges(Feature river, Features bridges)
     {
         long start = System.currentTimeMillis();
-        List<Feature> results = bridges.select(crosses(river)).toList();
+        List<Feature> results = bridges.crossing(river).toList();
         long end = System.currentTimeMillis();
 
         printBridges(results);
@@ -83,7 +81,7 @@ public class BridgesCrossed
     static void findBridgesIntersect(Feature river, Features bridges)
     {
         long start = System.currentTimeMillis();
-        List<Feature> results = bridges.select(intersects(river)).toList();
+        List<Feature> results = bridges.intersecting(river).toList();
         long end = System.currentTimeMillis();
 
         printBridges(results);
@@ -114,7 +112,7 @@ public class BridgesCrossed
         Set<Feature> results = new HashSet<>();
         for(Feature segment: river.members().ways())
         {
-            for (Feature bridge : bridges.select(crosses(segment)))
+            for (Feature bridge : bridges.crossing(segment))
             {
                 results.add(bridge);
             }
@@ -137,7 +135,7 @@ public class BridgesCrossed
         Set<Feature> results = new HashSet<>();
         for(Feature segment: river.members().ways())
         {
-            for (Feature bridge : bridges.select(intersects(segment)))
+            for (Feature bridge : bridges.intersecting(segment))
             {
                 results.add(bridge);
             }
