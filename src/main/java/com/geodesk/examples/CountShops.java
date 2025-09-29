@@ -12,8 +12,6 @@ import com.geodesk.feature.Feature;
 import com.geodesk.feature.FeatureLibrary;
 import com.geodesk.feature.Features;
 
-import static com.geodesk.feature.Filters.*;
-
 import static java.lang.System.out;
 
 /**
@@ -23,15 +21,14 @@ import static java.lang.System.out;
  */
 public class CountShops
 {
-    static final String GEODESK_PATH =  "c:\\geodesk\\tests\\";
+    static final String GEODESK_PATH =  "d:\\geodesk\\tests\\";
     static final String GOL_FILE =      "de.gol";
-    static final String TILESET_URL =   null;
 
     static FeatureLibrary features;
 
     public static void main(String[] args)
     {
-        features = new FeatureLibrary(GEODESK_PATH + GOL_FILE, TILESET_URL);
+        features = Features.open(GEODESK_PATH + GOL_FILE);
 
         long start = System.currentTimeMillis();
 
@@ -43,7 +40,7 @@ public class CountShops
         for(Feature county: counties)
         {
             countyCount++;
-            long shopCount = shops.select(within(county)).count();
+            long shopCount = shops.within(county).count();
             totalShopCount += shopCount;
             out.format("%d. %s - %d shops\n", countyCount, county.stringValue("name"), shopCount);
         }

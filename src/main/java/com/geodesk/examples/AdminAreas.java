@@ -9,6 +9,7 @@ package com.geodesk.examples;
 
 import com.clarisma.common.text.Format;
 import com.geodesk.feature.*;
+import com.geodesk.feature.filter.WithinFilter;
 
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class AdminAreas
         List<? extends Feature> subAreas = null;
         if(level < MAX_LEVEL)
         {
-            Filter filter = Filters.within(adminArea);
+            Filter filter = new WithinFilter(adminArea);
                 // Filter that select features that lie within an area
 
             for (int childLevel = level + 1; childLevel <= MAX_LEVEL; childLevel++)
@@ -75,7 +76,7 @@ public class AdminAreas
 
     public static void main(String[] args)
     {
-        features = new FeatureLibrary(GEODESK_PATH + GOL_FILE, TILESET_URL);
+        features = Features.open(GEODESK_PATH + GOL_FILE);
 
         long start = System.currentTimeMillis();
 

@@ -7,6 +7,7 @@
 
 package com.geodesk.examples;
 
+import com.geodesk.feature.Features;
 import com.geodesk.geom.Box;
 import com.geodesk.geom.Mercator;
 import com.geodesk.feature.Feature;
@@ -22,13 +23,12 @@ public class HotelFinderZurich
 {
     static final String GEODESK_PATH =  "c:\\geodesk\\tests\\";
     static final String GOL_FILE =      "s4.gol";
-    static final String TILESET_URL =   "https://data.geodesk.com/switzerland";
 
     static FeatureLibrary features;
 
     public static void main(String[] args)
     {
-        features = new FeatureLibrary(GEODESK_PATH + GOL_FILE, TILESET_URL);
+        features = Features.open(GEODESK_PATH + GOL_FILE);
 
         // City center of Zurich
         Box bbox = Box.ofWSEN(8.53,47.36,8.55,47.38);

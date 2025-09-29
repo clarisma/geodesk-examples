@@ -10,7 +10,6 @@ package com.geodesk.examples;
 import com.clarisma.common.text.Format;
 import com.geodesk.geom.Box;
 import com.geodesk.feature.*;
-import static com.geodesk.feature.Filters.*;
 
 import static java.lang.System.out;
 
@@ -20,15 +19,14 @@ import static java.lang.System.out;
  */
 public class MeasureRoads
 {
-    static final String GEODESK_PATH =  "c:\\geodesk\\tests\\";
-    static final String GOL_FILE =      "de3.gol";
-    static final String TILESET_URL =   null;
+    static final String GEODESK_PATH =  "d:\\geodesk\\tests\\";
+    static final String GOL_FILE =      "de.gol";
 
     static FeatureLibrary features;
 
     public static void main(String[] args)
     {
-        features = new FeatureLibrary(GEODESK_PATH + GOL_FILE, TILESET_URL);
+        features = Features.open(GEODESK_PATH + GOL_FILE);
 
         long start = System.currentTimeMillis();
 
@@ -56,7 +54,7 @@ public class MeasureRoads
         long segmentCount = 0;
         double totalLength = 0;
         double totalOnewayLength = 0;
-        for(Feature road: roads.select(within(country)))
+        for(Feature road: roads.within(country))
         {
             double roadLength = road.length();
             totalLength += roadLength;

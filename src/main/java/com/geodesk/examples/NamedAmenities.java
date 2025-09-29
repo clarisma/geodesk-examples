@@ -9,6 +9,7 @@ package com.geodesk.examples;
 
 import com.geodesk.feature.Feature;
 import com.geodesk.feature.FeatureLibrary;
+import com.geodesk.feature.Features;
 import com.geodesk.geom.Box;
 
 import static java.lang.System.out;
@@ -27,13 +28,12 @@ public class NamedAmenities
 {
     static final String GEODESK_PATH =  "c:\\geodesk\\tests\\";
     static final String GOL_FILE =      "switzerland.gol";
-    static final String TILESET_URL =   "http://data.geodesk.com/switzerland";
 
-    static FeatureLibrary features;
+    static Features features;
 
     public static void main(String[] args)
     {
-        features = new FeatureLibrary(GEODESK_PATH + GOL_FILE, TILESET_URL);
+        features = Features.open(GEODESK_PATH + GOL_FILE);
 
         Box box = Box.ofWorld();
         for (Feature f: features.select("n[amenity=waste_basket,drinking_water,bench][name]").in(box))

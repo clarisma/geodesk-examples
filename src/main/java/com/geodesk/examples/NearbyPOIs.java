@@ -16,8 +16,6 @@ import com.geodesk.feature.Features;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.geodesk.feature.Filters.*;
-
 /**
  * This example finds features within a certain radius from a series of point
  * features (such as movie theaters near a bus stop).
@@ -26,7 +24,6 @@ public class NearbyPOIs
 {
     static final String GEODESK_PATH =  "c:\\geodesk\\tests\\";
     static final String GOL_FILE =      "de.gol";
-    static final String TILESET_URL =   null;
 
     static FeatureLibrary features;
 
@@ -48,8 +45,8 @@ public class NearbyPOIs
         long pointCount = 0;
         for(Feature point: features.select(nearWhat))
         {
-            for(Feature f: amenities.select(
-                maxMetersFromXY(maxDistance, point.x(), point.y())))
+            for(Feature f: amenities
+                .maxMetersFromXY(maxDistance, point.x(), point.y()))
             {
                 results.add(f);
             }
@@ -64,7 +61,7 @@ public class NearbyPOIs
 
     public static void main(String[] args)
     {
-        features = new FeatureLibrary(GEODESK_PATH + GOL_FILE, TILESET_URL);
+        features = new FeatureLibrary(GEODESK_PATH + GOL_FILE);
 
         for(int i=0; i<10; i++)
         {

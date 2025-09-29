@@ -7,6 +7,7 @@
 
 package com.geodesk.examples;
 
+import com.geodesk.feature.Features;
 import com.geodesk.geom.Box;
 import com.geodesk.geom.Mercator;
 import com.geodesk.feature.Feature;
@@ -20,15 +21,14 @@ import static java.lang.System.out;
  */
 public class HotelFinder
 {
-    static final String GEODESK_PATH =  "c:\\geodesk\\tests\\";
-    static final String GOL_FILE =      "de3.gol";
-    static final String TILESET_URL =   null;
+    static final String GEODESK_PATH =  "d:\\geodesk\\tests\\";
+    static final String GOL_FILE =      "de.gol";
 
     static FeatureLibrary features;
 
     public static void main(String[] args)
     {
-        features = new FeatureLibrary(GEODESK_PATH + GOL_FILE, TILESET_URL);
+        features = Features.open(GEODESK_PATH + GOL_FILE);
 
         // City center of Heidelberg, Germany
         Box bbox = Box.ofWSEN(8.67, 49.40, 8.73, 49.42);

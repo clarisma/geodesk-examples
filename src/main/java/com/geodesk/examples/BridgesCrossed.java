@@ -44,7 +44,7 @@ import static java.lang.System.out;
 public class BridgesCrossed
 {
     static final String GEODESK_PATH =  "c:\\geodesk\\tests\\";
-    static final String GOL_FILE =      "de3.gol";
+    static final String GOL_FILE =      "de.gol";
 
     static FeatureLibrary features;
 
